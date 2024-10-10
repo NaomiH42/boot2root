@@ -1,9 +1,17 @@
+# Bonus - secret_phrase
+
+There is an additional unused function in the `bomb` binary:
+
+``` shell
 (gdb) i func
-[...]
+...
 0x08048ee8  secret_phase
-[...]
+...
+```
 
+Let's disassemble:
 
+``` asm
 (gdb) disas secret_phase 
 Dump of assembler code for function secret_phase:
    0x08048ee8 <+0>:	push   %ebp
@@ -39,9 +47,11 @@ Dump of assembler code for function secret_phase:
    0x08048f46 <+94>:	pop    %ebp
    0x08048f47 <+95>:	ret    
 End of assembler dump.
+```
 
+Apart from knowing we need to satisfy the condition `number - 1 > 1000`, there are no specific input requirements mentioned here. Our focus is on the `phase_defused` function, which is repeated across the levels. We observe a check against a string (`austinpowers`), which is passed if the second word entered during phase 4 matches:
 
-PHASE_DEFUSED
+```
    0x0804955e <+50>:	push   $0x8049d09
    0x08049563 <+55>:	push   %ebx
    0x08049564 <+56>:	call   0x8049030 <strings_not_equal>
@@ -49,10 +59,10 @@ PHASE_DEFUSED
 
 (gdb) x/s 0x8049d09
 0x8049d09:	"austinpowers"
+```
 
-
-number - 1 > 1000, so 1001?
-
+This way, we found an alternative method of defusing the `bomb` binary.
+``` shell
 $ ./bomb
 Welcome this is my little bomb !!!! You have 6 stages with
 only one life good luck !! Have a nice day!
@@ -72,3 +82,4 @@ But finding it and solving it are quite different...
 1001
 Wow! You've defused the secret stage!
 Congratulations! You've defused the bomb!
+```
