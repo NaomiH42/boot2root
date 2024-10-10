@@ -1,4 +1,4 @@
-# Bonus - apache suEXEC 1
+# bonus - apache suEXEC 1
 
 [Apache suEXEC privilege elevation](https://www.exploit-db.com/exploits/27397)
 

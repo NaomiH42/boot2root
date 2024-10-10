@@ -1,4 +1,4 @@
-# Bonus - secret_phrase
+# bonus - secret_phrase
 
 There is an additional unused function in the `bomb` binary:
 
